@@ -1,0 +1,19 @@
+{
+  "name": "tinywan/captcha",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "ext-gd": "*",
+    "ext-mbstring": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Tinywan\\Captcha\\": "src"
+    }
+  },
+  "require-dev": {
+    "workerman/webman": "^1.0",
+    "friendsofphp/php-cs-fixer": "^3.6",
+    "phpstan/phpstan": "^1.4"
+  }
+}
