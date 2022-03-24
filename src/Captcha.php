@@ -17,11 +17,6 @@ class Captcha
     private $im    = null; // 验证码图片实例
     private $color = null; // 验证码字体颜色
 
-    /**
-     * @var Config|null
-     */
-    private $config = null;
-
     // 验证码字符集合
     protected $codeSet = '2345678abcdefhijkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXY';
     // 验证码过期时间（s）
@@ -48,36 +43,15 @@ class Captcha
     protected $fontttf = '';
     // 背景颜色
     protected $bg = [243, 251, 254];
-    //算术验证码
+    // 算术验证码
     protected $math = false;
 
     /**
      * 架构方法 设置参数
      * @access public
-     * @param Config  $config
      */
-    public function __construct(Config $config)
+    public function __construct()
     {
-//        $this->config  = $config;
-    }
-
-    /**
-     * 配置验证码
-     * @param string|null $config
-     */
-    protected function configure(string $config = null): void
-    {
-        if (is_null($config)) {
-            $config = $this->config->get('captcha', []);
-        } else {
-            $config = $this->config->get('captcha.' . $config, []);
-        }
-
-        foreach ($config as $key => $val) {
-            if (property_exists($this, $key)) {
-                $this->{$key} = $val;
-            }
-        }
     }
 
     /**
@@ -153,8 +127,7 @@ class Captcha
      */
     public function createBase64(string $config = null)
     {
-//        $this->configure($config);
-
+        $config = config('plugin.tinywan.captcha.app.captcha');
         $generator = $this->generate();
 
         // 图片宽(px)
