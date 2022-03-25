@@ -1,7 +1,15 @@
 {
   "name": "tinywan/captcha",
+  "description": "base64 image verification captcha library for webman plugin",
+  "keywords": ["base64", "captcha", "webman", "plugin"],
   "type": "library",
   "license": "MIT",
+  "authors": [
+    {
+      "name": "Tinywan",
+      "email": "756684177@qq.com"
+    }
+  ],
   "require": {
     "ext-gd": "*",
     "ext-mbstring": "*"

@@ -1,11 +1,13 @@
-# webman-captcha
+# webman captcha plugin
 
-base64验证码插件
+[![Latest Stable Version](http://poser.pugx.org/tinywan/captcha/v)](https://packagist.org/packages/tinywan/captcha) [![Total Downloads](http://poser.pugx.org/tinywan/captcha/downloads)](https://packagist.org/packages/tinywan/captcha) [![Latest Unstable Version](http://poser.pugx.org/tinywan/captcha/v/unstable)](https://packagist.org/packages/tinywan/captcha) [![License](http://poser.pugx.org/tinywan/captcha/license)](https://packagist.org/packages/tinywan/captcha)
+
+base64 image verification captcha library for webman plugin
 
 ## 安装
 
 ```shell
-composer require tinywan/jwt
+composer require tinywan/captcha
 ```
 
 ## 使用
