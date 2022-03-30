@@ -11,6 +11,7 @@
     }
   ],
   "require": {
+    "ext-redis": "*",
     "ext-gd": "*",
     "ext-mbstring": "*"
   },
