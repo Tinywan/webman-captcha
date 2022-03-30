@@ -1,9 +1,11 @@
 <?php
+
 /**
  * @desc Captcha.php 描述信息
  * @author Tinywan(ShaoBo Wan)
  * @date 2022/3/24 21:36
  */
+
 declare(strict_types=1);
 
 namespace Tinywan\Captcha;
@@ -13,19 +15,20 @@ use support\Redis;
 class Captcha
 {
     /**
-     * 验证验证码是否正确
-     * @access public
+     * @desc: 验证验证码是否正确
      * @param string $code 用户验证码
-     * @return bool 用户验证码是否正确
+     * @param string $key 用户验证码key
+     * @return bool
+     * @author Tinywan(ShaoBo Wan)
      */
-    public static function check(string $code): bool
+    public static function check(string $code, string $key): bool
     {
         $config = config('plugin.tinywan.captcha.app.captcha');
-        $cacheKey = $config['prefix'].request()->getRemoteIp();
+        $cacheKey = $config['prefix'] . $key;
         if (!Redis::exists($cacheKey)) {
             return false;
         }
-        $hash = Redis::hGet($cacheKey,'key');
+        $hash = Redis::hGet($cacheKey, 'key');
         $code = mb_strtolower($code, 'UTF-8');
         $res = password_verify($code, $hash);
         if ($res) {
@@ -38,14 +41,14 @@ class Captcha
      * 输出验证码并把验证码的值保存的session中
      * @access public
      * @param array $_config
-     * @return string
+     * @return array
      * @throws \Exception
      */
     public static function base64(array $_config = [])
     {
         $config = config('plugin.tinywan.captcha.app.captcha');
         if (!empty($_config)) {
-            $config = array_merge($config,$_config);
+            $config = array_merge($config, $_config);
         }
         $generator = self::generate($config);
         // 图片宽(px)
@@ -78,16 +81,16 @@ class Captcha
         $fontttf = $ttfPath . $config['fontttf'];
 
         if ($config['useImgBg']) {
-            self::background($config,$im);
+            self::background($config, $im);
         }
 
         if ($config['useNoise']) {
             // 绘杂点
-            self::writeNoise($config,$im);
+            self::writeNoise($config, $im);
         }
         if ($config['useCurve']) {
             // 绘干扰线
-            self::writeCurve($config,$im,$color);
+            self::writeCurve($config, $im, $color);
         }
 
         // 绘验证码
@@ -105,7 +108,10 @@ class Captcha
         $content = ob_get_clean();
         imagedestroy($im);
 
-        return 'data:image/png;base64,' . base64_encode($content);
+        return [
+            'key' => $generator['key'],
+            'base64' => 'data:image/png;base64,' . base64_encode($content),
+        ];
     }
 
     /**
@@ -141,15 +147,15 @@ class Captcha
         }
 
         $hash = password_hash($key, PASSWORD_BCRYPT, ['cost' => 10]);
-        Redis::hMSet($config['prefix'].request()->getRemoteIp(), ['key' => $hash,]);
-        return ['value' => $bag,'key'   => $hash];
+        Redis::hMSet($config['prefix'] . $hash, ['key' => $hash]);
+        return ['value' => $bag, 'key' => $hash];
     }
 
     /**
      * @desc: 画一条由两条连在一起构成的随机正弦函数曲线作干扰线(你可以改成更帅的曲线函数)
      * @param array $config
      */
-    protected static function writeCurve(array $config,$im,$color): void
+    protected static function writeCurve(array $config, $im, $color): void
     {
         $py = 0;
         // 曲线前部分
@@ -200,7 +206,7 @@ class Captcha
      * @param $im
      * @author Tinywan(ShaoBo Wan)
      */
-    protected static function writeNoise(array $config,$im): void
+    protected static function writeNoise(array $config, $im): void
     {
         $codeSet = 'tinywan20222345678abcdefhijkmnpqrstuvwxyz';
         for ($i = 0; $i < 10; $i++) {
