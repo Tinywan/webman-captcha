@@ -12,7 +12,7 @@ composer require tinywan/captcha
 
 ## 使用
 
-### 生成base64
+### 1、生成base64
 
 ```php
 use Tinywan\Captcha\Captcha;
@@ -30,7 +30,7 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAA+CAMAAAA1S/atAAAAk1BMVEXz+/
 
 ![captcha.png](captcha.png)
 
-### 验证验证码
+### 2、验证验证码
 
 ```php
 use Tinywan\Captcha\Captcha;
