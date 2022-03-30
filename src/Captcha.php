@@ -32,7 +32,7 @@ class Captcha
         $code = mb_strtolower($code, 'UTF-8');
         $res = password_verify($code, $hash);
         if ($res) {
-            Redis::del('captcha');
+            Redis::del($cacheKey);
         }
         return $res;
     }
