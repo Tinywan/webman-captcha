@@ -11,6 +11,7 @@
     }
   ],
   "require": {
+    "php": ">=7.2",
     "ext-redis": "*",
     "ext-gd": "*",
     "ext-mbstring": "*"
