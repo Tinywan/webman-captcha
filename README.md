@@ -2,6 +2,7 @@
 
 [![Latest Stable Version](http://poser.pugx.org/tinywan/captcha/v)](https://packagist.org/packages/tinywan/captcha) 
 [![Total Downloads](http://poser.pugx.org/tinywan/captcha/downloads)](https://packagist.org/packages/tinywan/captcha) 
+[![Daily Downloads](http://poser.pugx.org/tinywan/captcha/d/daily)](https://packagist.org/packages/tinywan/captcha)
 [![Latest Unstable Version](http://poser.pugx.org/tinywan/captcha/v/unstable)](https://packagist.org/packages/tinywan/captcha) 
 [![License](http://poser.pugx.org/tinywan/captcha/license)](https://packagist.org/packages/tinywan/captcha)
 [![PHP Version Require](http://poser.pugx.org/tinywan/captcha/require/php)](https://packagist.org/packages/tinywan/captcha)
