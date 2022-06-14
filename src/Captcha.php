@@ -1,11 +1,9 @@
 <?php
-
 /**
  * @desc Captcha.php 描述信息
  * @author Tinywan(ShaoBo Wan)
  * @date 2022/3/24 21:36
  */
-
 declare(strict_types=1);
 
 namespace Tinywan\Captcha;
@@ -146,8 +144,12 @@ class Captcha
             $key = mb_strtolower($bag, 'UTF-8');
         }
 
+        $config = config('plugin.tinywan.captcha.app.captcha');
         $hash = password_hash($key, PASSWORD_BCRYPT, ['cost' => 10]);
+        Redis::multi();
         Redis::hMSet($config['prefix'] . $hash, ['key' => $hash]);
+        Redis::expire($config['prefix'] . $hash, $config['ttl'] ?? 60);
+        Redis::exec();
         return ['value' => $bag, 'key' => $hash];
     }
 
