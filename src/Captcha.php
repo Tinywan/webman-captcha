@@ -148,7 +148,7 @@ class Captcha
         $hash = password_hash($key, PASSWORD_BCRYPT, ['cost' => 10]);
         Redis::multi();
         Redis::hMSet($config['prefix'] . $hash, ['key' => $hash]);
-        Redis::expire($config['prefix'] . $hash, $config['ttl'] ?? 60);
+        Redis::expire($config['prefix'] . $hash, $config['expire'] ?? 60);
         Redis::exec();
         return ['value' => $bag, 'key' => $hash];
     }
