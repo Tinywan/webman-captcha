@@ -76,8 +76,10 @@ class Captcha
             $config['fontttf'] = $ttfs[array_rand($ttfs)];
         }
 
-        $fontttf = $ttfPath . $config['fontttf'];
+        $configFont = $config['fontttf'] ?? '';
 
+        $fontttf = is_file($configFont) ? $configFont : $ttfPath . $configFont;
+        
         if ($config['useImgBg']) {
             self::background($config, $im);
         }
